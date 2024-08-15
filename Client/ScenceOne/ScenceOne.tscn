@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://gk0nx7260xho"]
+
+[ext_resource type="PackedScene" uid="uid://bxfmuisqvgqlu" path="res://Component/Block/Block.tscn" id="1_6giwi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7akhr"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yulby"]
+size = Vector3(10, 0.5, 10)
+
+[node name="ScenceOne" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.5, 0.612372, 0.612373, 1.21973e-18, -0.707107, 0.707107, 0.866025, -0.353553, -0.353553, 0, 6.50845, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_7akhr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_yulby")
+
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="Block" parent="Blocks" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0, 2.34179, 3.40306)
+
+[node name="Block2" parent="Blocks" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.0385221, 5.63151, 3.3034)
+
+[node name="Block3" parent="Blocks" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.156452, 9.05269, 3.89638)
+
+[node name="Block4" parent="Blocks" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.194974, 12.3566, 3.3034)

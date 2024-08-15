@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxhrvqadqpx1w"]
+
+[ext_resource type="Script" path="res://UserInterface/Menu/JoinMenu/JoinMenuScript.gd" id="1_ct83e"]
+[ext_resource type="Texture2D" uid="uid://c22srkof1w6ji" path="res://Assets/UserInterface/Menu/JoinMenuBackground.jpg" id="1_vrke7"]
+
+[node name="JoinMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ct83e")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vrke7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="IPAddressText" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "IP Address: "
+
+[node name="IPAddressInput" type="TextEdit" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 46
+placeholder_text = "127.0.0.1"
+
+[node name="JoinServer" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "Join Server"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/JoinServer" to="." method="_on_join_server_pressed"]

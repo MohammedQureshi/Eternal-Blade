@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlw8jjpls6ljx"]
+
+[ext_resource type="Script" path="res://Client/GameSceneScript.gd" id="1_jtfs1"]
+[ext_resource type="PackedScene" uid="uid://gk0nx7260xho" path="res://Client/ScenceOne/ScenceOne.tscn" id="1_p7nfp"]
+[ext_resource type="Texture2D" uid="uid://bj5haarcol6da" path="res://icon.svg" id="3_swas7"]
+
+[sub_resource type="GDScript" id="GDScript_5gb53"]
+script/source = "extends Sprite3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_jtfs1")
+
+[node name="Scences" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.231026, 0)
+
+[node name="ScenceOne" parent="Scences" instance=ExtResource("1_p7nfp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0344925, 0)
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13531, 1.90319, 0)
+texture = ExtResource("3_swas7")
+script = SubResource("GDScript_5gb53")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Component/Player/Player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 8
+
+[node name="Players" type="Node3D" parent="."]

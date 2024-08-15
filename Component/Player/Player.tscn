@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bu5bu7eg0qwx"]
+
+[ext_resource type="Script" path="res://Component/Player/Player.gd" id="1_fjgmn"]
+[ext_resource type="Script" path="res://Server/InputSynchronizer.gd" id="2_avy32"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ml62g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3t1hf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3su0n"]
+size = Vector3(0.4, 0.2, 0.8)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_brfht"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:custom_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o7gta"]
+properties/0/path = NodePath("InputSynchronizer:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_fjgmn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ml62g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_3t1hf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0176189, 1.53518, -0.445382)
+mesh = SubResource("BoxMesh_3su0n")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07271, 2.71497)
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_brfht")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_o7gta")
+script = ExtResource("2_avy32")
