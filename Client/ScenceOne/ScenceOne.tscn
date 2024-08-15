@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://gk0nx7260xho"]
+[gd_scene load_steps=5 format=3 uid="uid://gk0nx7260xho"]
 
 [ext_resource type="PackedScene" uid="uid://bxfmuisqvgqlu" path="res://Component/Block/Block.tscn" id="1_6giwi"]
 
@@ -8,31 +8,107 @@ size = Vector3(10, 0.5, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yulby"]
 size = Vector3(10, 0.5, 10)
 
-[node name="ScenceOne" type="Node3D"]
+[sub_resource type="Environment" id="Environment_eruha"]
+background_mode = 1
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.5, 0.612372, 0.612373, 1.21973e-18, -0.707107, 0.707107, 0.866025, -0.353553, -0.353553, 0, 6.50845, 0)
-shadow_enabled = true
+[node name="ScenceOne" type="Node3D"]
 
 [node name="Floor" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("BoxMesh_7akhr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(5.00035, 0, 0, 0, 5.00035, 0, 0, 0, 5.00035, 0, 0, 0)
 shape = SubResource("BoxShape3D_yulby")
 
 [node name="Blocks" type="Node3D" parent="."]
 
 [node name="Block" parent="Blocks" instance=ExtResource("1_6giwi")]
-transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0, 2.34179, 3.40306)
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, -0.0229559, 2.32769, -4.22097)
 
 [node name="Block2" parent="Blocks" instance=ExtResource("1_6giwi")]
-transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.0385221, 5.63151, 3.3034)
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.0155662, 5.61741, -4.32063)
 
 [node name="Block3" parent="Blocks" instance=ExtResource("1_6giwi")]
-transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.156452, 9.05269, 3.89638)
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.133496, 9.03859, -3.72765)
 
 [node name="Block4" parent="Blocks" instance=ExtResource("1_6giwi")]
-transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.194974, 12.3566, 3.3034)
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.172018, 12.3425, -4.32063)
+
+[node name="Block" parent="Blocks/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 10.175, -15.3357, -4.22097)
+
+[node name="Block2" parent="Blocks/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 10.2135, -12.046, -4.32063)
+
+[node name="Block3" parent="Blocks/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 10.3315, -8.62478, -3.72765)
+
+[node name="Block4" parent="Blocks/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 10.37, -5.32087, -4.32063)
+
+[node name="Block" parent="Blocks/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, -0.0229568, 2.32769, 17.9073)
+
+[node name="Block2" parent="Blocks/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.0155659, 5.61741, 17.8076)
+
+[node name="Block3" parent="Blocks/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.133495, 9.03859, 18.4006)
+
+[node name="Block4" parent="Blocks/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.172016, 12.3425, 17.8076)
+
+[node name="Block" parent="Blocks/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 16.7563, 2.3277, -14.0107)
+
+[node name="Block2" parent="Blocks/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 16.7948, 5.61742, -14.1103)
+
+[node name="Block3" parent="Blocks/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 16.9127, 9.03861, -13.5174)
+
+[node name="Block4" parent="Blocks/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 16.9512, 12.3425, -14.1103)
+
+[node name="Block" parent="Blocks/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.4997, 0.0173102, 0.5, 0.865506, -0.0299821, -1.76179e-08, 0.0346204, 0.999401, -13.6275, -5.52101, -12.5201)
+
+[node name="Block2" parent="Blocks/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.50015, -0.865766, 0.0173102, 0.865765, 0.49955, -0.0299821, 0.0173102, 0.0299822, 0.999401, -13.5899, -2.22977, -12.5217)
+
+[node name="Block3" parent="Blocks/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.866025, -0.4997, 0.0173102, 0.5, 0.865506, -0.0299821, -1.76179e-08, 0.0346204, 0.999401, -13.4608, 1.17213, -11.8286)
+
+[node name="Block4" parent="Blocks/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.50015, -0.865766, 0.0173102, 0.865765, 0.49955, -0.0299821, 0.0173102, 0.0299822, 0.999401, -13.4317, 4.49234, -12.3228)
+
+[node name="Block" parent="Blocks/Block4/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.341797, -0.858978, -0.381225, -0.763904, -0.0176682, -0.645088, 0.54738, 0.511708, -0.662217, -3.88228, 13.8299, 4.4008)
+
+[node name="Block2" parent="Blocks/Block4/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0.645088, 0.729899, 0.169462, -0.662216, -5.70135, 12.5622, 6.83342)
+
+[node name="Block3" parent="Blocks/Block4/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.341797, -0.858978, -0.381225, -0.763904, -0.0176682, -0.645088, 0.54738, 0.511708, -0.662217, -7.80218, 10.7436, 8.91891)
+
+[node name="Block4" parent="Blocks/Block4/Block4/Block4/Block4/Block4" instance=ExtResource("1_6giwi")]
+transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0.645088, 0.729899, 0.169462, -0.662216, -9.4413, 9.7885, 11.6884)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eruha")
+
+[node name="Block" parent="." instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.341797, -0.858978, -0.381225, -0.763904, -0.0176682, -0.645088, 0.54738, 0.511708, -0.662217, -3.88228, 13.8299, 4.4008)
+
+[node name="Block2" parent="." instance=ExtResource("1_6giwi")]
+transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0.645088, 0.729899, 0.169462, -0.662216, -5.70135, 12.5622, 6.83342)
+
+[node name="Block3" parent="." instance=ExtResource("1_6giwi")]
+transform = Transform3D(0.341797, -0.858978, -0.381225, -0.763904, -0.0176682, -0.645088, 0.54738, 0.511708, -0.662217, -7.80218, 10.7436, 8.91891)
+
+[node name="Block4" parent="." instance=ExtResource("1_6giwi")]
+transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0.645088, 0.729899, 0.169462, -0.662216, -9.4413, 9.7885, 11.6884)

@@ -42,7 +42,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0176
 mesh = SubResource("BoxMesh_3su0n")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07271, 2.71497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 1.59521, -0.569699)
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_brfht")
@@ -51,3 +51,6 @@ replication_config = SubResource("SceneReplicationConfig_brfht")
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_o7gta")
 script = ExtResource("2_avy32")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 1.64364, 0)
