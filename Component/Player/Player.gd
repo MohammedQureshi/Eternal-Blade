@@ -53,11 +53,10 @@ func _input(event):
 	if Input.is_action_just_pressed("Escape"):
 		isCaptured = !isCaptured
 	
-	if isCaptured:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else: 
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
+	if Input.is_action_just_pressed("ForceQuit"):
+		get_tree().quit()
+		
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if isCaptured else Input.MOUSE_MODE_VISIBLE)
 	
 	if event is InputEventMouseMotion and isCaptured:
 		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
