@@ -100,15 +100,3 @@ transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eruha")
-
-[node name="Block" parent="." instance=ExtResource("1_6giwi")]
-transform = Transform3D(0.341797, -0.858978, -0.381225, -0.763904, -0.0176682, -0.645088, 0.54738, 0.511708, -0.662217, -3.88228, 13.8299, 4.4008)
-
-[node name="Block2" parent="." instance=ExtResource("1_6giwi")]
-transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0.645088, 0.729899, 0.169462, -0.662216, -5.70135, 12.5622, 6.83342)
-
-[node name="Block3" parent="." instance=ExtResource("1_6giwi")]
-transform = Transform3D(0.341797, -0.858978, -0.381225, -0.763904, -0.0176682, -0.645088, 0.54738, 0.511708, -0.662217, -7.80218, 10.7436, 8.91891)
-
-[node name="Block4" parent="." instance=ExtResource("1_6giwi")]
-transform = Transform3D(-0.133484, -0.914795, -0.381225, -0.670395, 0.366651, -0.645088, 0.729899, 0.169462, -0.662216, -9.4413, 9.7885, 11.6884)

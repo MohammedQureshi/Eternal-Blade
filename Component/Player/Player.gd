@@ -1,6 +1,10 @@
 extends CharacterBody3D
 
-@onready var camera_3d = $Camera3D
+var isCaptured = true;
+
+@onready var pivot = $CamOrigin
+@export var sensitivity = 0.2
+@onready var camera_3d = $CamOrigin/SpringArm3D/Camera3D
 
 @export var player_id := 1:
 	set(id):
@@ -34,6 +38,19 @@ func _apply_movement_from_input(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	
+	#Sample code below it will be replaced
+	
+	
+	if Input.is_action_just_pressed("Escape"):
+		isCaptured = !isCaptured
+	
+	if isCaptured:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else: 
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	#Sample code above will be removed
 
 	var input_dir = %InputSynchronizer.input_direction
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -45,7 +62,13 @@ func _apply_movement_from_input(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	
+
+func _input(event):
+	if event is InputEventMouseMotion and isCaptured:
+		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
+		pivot.rotate_x(deg_to_rad(-event.relative.y * sensitivity))
+		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(45))
+
 func _physics_process(delta):
 	if multiplayer.is_server():
 		_apply_movement_from_input(delta)

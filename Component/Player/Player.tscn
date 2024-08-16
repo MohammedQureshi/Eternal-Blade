@@ -1,14 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bu5bu7eg0qwx"]
+[gd_scene load_steps=12 format=3 uid="uid://bu5bu7eg0qwx"]
 
 [ext_resource type="Script" path="res://Component/Player/Player.gd" id="1_fjgmn"]
 [ext_resource type="Script" path="res://Server/InputSynchronizer.gd" id="2_avy32"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27545"]
+albedo_color = Color(0.519535, 0.959159, 0.990567, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lj01x"]
+material = SubResource("StandardMaterial3D_27545")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ouyqb"]
+albedo_color = Color(0.838567, 0.871901, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_hscrm"]
+material = SubResource("StandardMaterial3D_ouyqb")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5olh3"]
+albedo_color = Color(0.742044, 0.904505, 0.999848, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ml62g"]
+material = SubResource("StandardMaterial3D_5olh3")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3t1hf"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_3su0n"]
-size = Vector3(0.4, 0.2, 0.8)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_brfht"]
 properties/0/path = NodePath(".:player_id")
@@ -29,7 +44,20 @@ properties/0/replication_mode = 1
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_fjgmn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.52467, 0)
+mesh = SubResource("SphereMesh_lj01x")
+
+[node name="LeftEye" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177301, 0.0756073, -0.487917)
+mesh = SubResource("SphereMesh_hscrm")
+skeleton = NodePath("../RightEye")
+
+[node name="RightEye" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196104, 0.070575, -0.461599)
+mesh = SubResource("SphereMesh_hscrm")
+
+[node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_ml62g")
 
@@ -37,12 +65,19 @@ mesh = SubResource("CapsuleMesh_ml62g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_3t1hf")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0176189, 1.53518, -0.445382)
-mesh = SubResource("BoxMesh_3su0n")
+[node name="CamOrigin" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 1.59521, -0.569699)
+[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54367, 1.7942)
+spring_length = 2.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 0.0334666, -2.47946)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 1.64364, 0)
+spot_range = 50.0
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_brfht")
@@ -51,6 +86,3 @@ replication_config = SubResource("SceneReplicationConfig_brfht")
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_o7gta")
 script = ExtResource("2_avy32")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 1.64364, 0)
