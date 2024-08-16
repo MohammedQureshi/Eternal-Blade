@@ -68,12 +68,12 @@ shape = SubResource("CapsuleShape3D_3t1hf")
 [node name="CamOrigin" type="Node3D" parent="."]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54367, 1.7942)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54367, -1.90463)
 spring_length = 2.0
 margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 0.0334666, -2.47946)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 0.0334666, 0.15745)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 1.64364, 0)
