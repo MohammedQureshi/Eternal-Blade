@@ -64,5 +64,6 @@ func _input(event):
 		rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _physics_process(delta):
+	DebugManager.debug.add_property("CapturedState", isCaptured, 1)
 	if multiplayer.is_server():
 		_apply_movement_from_input(delta)

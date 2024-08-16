@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlw8jjpls6ljx"]
+[gd_scene load_steps=6 format=3 uid="uid://dlw8jjpls6ljx"]
 
 [ext_resource type="Script" path="res://Client/GameSceneScript.gd" id="1_jtfs1"]
 [ext_resource type="PackedScene" uid="uid://gk0nx7260xho" path="res://Client/ScenceOne/ScenceOne.tscn" id="1_p7nfp"]
 [ext_resource type="Texture2D" uid="uid://bj5haarcol6da" path="res://icon.svg" id="3_swas7"]
+[ext_resource type="PackedScene" uid="uid://bs5yc6sa7w3db" path="res://Debug/DebugPanel.tscn" id="4_m6ilo"]
 
 [sub_resource type="GDScript" id="GDScript_5gb53"]
 script/source = "extends Sprite3D
@@ -38,3 +39,5 @@ spawn_path = NodePath("../Players")
 spawn_limit = 8
 
 [node name="Players" type="Node3D" parent="."]
+
+[node name="Debug" parent="." instance=ExtResource("4_m6ilo")]
