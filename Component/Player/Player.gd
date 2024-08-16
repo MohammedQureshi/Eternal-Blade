@@ -37,19 +37,6 @@ func _apply_movement_from_input(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	
-	#Sample code below it will be replaced
-	
-	
-	if Input.is_action_just_pressed("Escape"):
-		isCaptured = !isCaptured
-	
-	if isCaptured:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else: 
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-	#Sample code above will be removed
 
 	var input_dir = %InputSynchronizer.input_direction
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -63,15 +50,19 @@ func _apply_movement_from_input(delta):
 	move_and_slide()
 
 func _input(event):
+	if Input.is_action_just_pressed("Escape"):
+		isCaptured = !isCaptured
+	
+	if isCaptured:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else: 
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	
 	if event is InputEventMouseMotion and isCaptured:
 		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
 		rotate_y(-event.relative.x * mouse_sensitivity)
-		
-		#rotate_y(-event.relative.x * mouse_sensitivity)
-		#rotate_x(-event.relative.x * mouse_sensitivity)
-		#rotate_x(deg_to_rad(event.relative.y * sensitivity))
-		#rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(45))
 
 func _physics_process(delta):
 	if multiplayer.is_server():
