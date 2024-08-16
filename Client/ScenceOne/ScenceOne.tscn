@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://gk0nx7260xho"]
+[gd_scene load_steps=6 format=3 uid="uid://gk0nx7260xho"]
 
 [ext_resource type="PackedScene" uid="uid://bxfmuisqvgqlu" path="res://Component/Block/Block.tscn" id="1_6giwi"]
 
@@ -7,6 +7,9 @@ size = Vector3(10, 0.5, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yulby"]
 size = Vector3(10, 0.5, 10)
+
+[sub_resource type="QuadMesh" id="QuadMesh_tew2f"]
+size = Vector2(100, 100)
 
 [sub_resource type="Environment" id="Environment_eruha"]
 background_mode = 1
@@ -23,6 +26,10 @@ mesh = SubResource("BoxMesh_7akhr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 transform = Transform3D(5.00035, 0, 0, 0, 5.00035, 0, 0, 0, 5.00035, 0, 0, 0)
 shape = SubResource("BoxShape3D_yulby")
+
+[node name="Wall" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(-0.0148871, 0, -0.999889, 0, 1, 0, 0.999889, 0, -0.0148871, 23.749, 11.0364, 0)
+mesh = SubResource("QuadMesh_tew2f")
 
 [node name="Blocks" type="Node3D" parent="."]
 

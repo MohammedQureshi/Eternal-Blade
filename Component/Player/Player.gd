@@ -2,9 +2,8 @@ extends CharacterBody3D
 
 var isCaptured = true;
 
-@onready var pivot = $CamOrigin
-@export var sensitivity = 0.2
-@onready var camera_3d = $CamOrigin/SpringArm3D/Camera3D
+@export var mouse_sensitivity = 0.002
+@onready var camera_3d = $Head/Camera3D
 
 @export var player_id := 1:
 	set(id):
@@ -65,9 +64,14 @@ func _apply_movement_from_input(delta):
 
 func _input(event):
 	if event is InputEventMouseMotion and isCaptured:
-		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
-		pivot.rotate_x(deg_to_rad(-event.relative.y * sensitivity))
-		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(45))
+		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
+		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
+		rotate_y(-event.relative.x * mouse_sensitivity)
+		
+		#rotate_y(-event.relative.x * mouse_sensitivity)
+		#rotate_x(-event.relative.x * mouse_sensitivity)
+		#rotate_x(deg_to_rad(event.relative.y * sensitivity))
+		#rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(45))
 
 func _physics_process(delta):
 	if multiplayer.is_server():
