@@ -24,6 +24,7 @@ MultiplayerManager="*res://Server/MultiplayerManager.gd"
 window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/vsync/vsync_mode=0
 
 [dotnet]
 
