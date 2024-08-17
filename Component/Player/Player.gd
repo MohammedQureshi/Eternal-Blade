@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-var isCaptured = true;
-
 @export var mouse_sensitivity = 0.002
 @onready var camera_3d = $Head/Camera3D
 
@@ -23,10 +21,9 @@ const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
 	if multiplayer.get_unique_id() == player_id:
 		camera_3d.make_current()
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		camera_3d.current = false
 
@@ -51,19 +48,15 @@ func _apply_movement_from_input(delta):
 	move_and_slide()
 
 func _input(event):
-	if Input.is_action_just_pressed("Escape"):
-		isCaptured = !isCaptured
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if isCaptured else Input.MOUSE_MODE_VISIBLE)
 	
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
 		
-	if event is InputEventMouseMotion and isCaptured:
+	if event is InputEventMouseMotion:
 		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
 		rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _physics_process(delta):
-	DebugManager.debug.add_property("CapturedState", isCaptured, 1)
 	if multiplayer.is_server():
 		_apply_movement_from_input(delta)
