@@ -40,4 +40,4 @@ spawn_limit = 8
 
 [node name="Players" type="Node3D" parent="."]
 
-[node name="Debug" parent="." instance=ExtResource("4_m6ilo")]
+[node name="DebugPanel" parent="." instance=ExtResource("4_m6ilo")]

@@ -23,6 +23,7 @@ const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	print(player_id)
 	if multiplayer.get_unique_id() == player_id:
 		camera_3d.make_current()
 	else:
@@ -37,6 +38,9 @@ func _apply_movement_from_input(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	#if Input.is_action_just_pressed("Escape"):
+		#isCaptured = !isCaptured
 
 	var input_dir = %InputSynchronizer.input_direction
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -51,6 +55,7 @@ func _apply_movement_from_input(delta):
 
 func _input(event):
 	if Input.is_action_just_pressed("Escape"):
+		print("Hello")
 		isCaptured = !isCaptured
 	
 	if Input.is_action_just_pressed("ForceQuit"):
