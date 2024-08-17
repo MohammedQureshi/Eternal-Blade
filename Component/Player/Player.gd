@@ -52,7 +52,6 @@ func _apply_movement_from_input(delta):
 
 func _input(event):
 	if Input.is_action_just_pressed("Escape"):
-		print("Hello")
 		isCaptured = !isCaptured
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if isCaptured else Input.MOUSE_MODE_VISIBLE)
 	
