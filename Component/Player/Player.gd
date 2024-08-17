@@ -6,7 +6,6 @@ extends CharacterBody3D
 @export var player_id := 1:
 	set(id):
 		player_id = id
-		print(id)
 		%InputSynchronizer.set_multiplayer_authority(id)
 		
 @export var custom_velocity := Vector3.ZERO:
@@ -51,6 +50,9 @@ func _apply_movement_from_input(delta):
 	move_and_slide()
 
 func _input(event):
+	
+	if multiplayer.get_unique_id() != player_id:
+		return
 	
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
