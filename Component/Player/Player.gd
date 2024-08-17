@@ -55,7 +55,7 @@ func _input(event):
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
 		
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and GlobalManager.isCaptured:
 		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
 		rotate_y(-event.relative.x * mouse_sensitivity)

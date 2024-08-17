@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 MultiplayerManager="*res://Server/MultiplayerManager.gd"
 DebugManager="*res://Debug/DebugManager.gd"
+GlobalManager="*res://Global/GlobalManager.gd"
 
 [display]
 
