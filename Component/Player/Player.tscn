@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Server/InputSynchronizer.gd" id="2_avy32"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27545"]
-albedo_color = Color(0.519535, 0.959159, 0.990567, 1)
+albedo_color = Color(0.498039, 0.698039, 0.992157, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_lj01x"]
 material = SubResource("StandardMaterial3D_27545")

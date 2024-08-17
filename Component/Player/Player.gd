@@ -6,7 +6,8 @@ extends CharacterBody3D
 @export var player_id := 1:
 	set(id):
 		player_id = id
-		$InputSynchronizer.set_multiplayer_authority(id)
+		print(id)
+		%InputSynchronizer.set_multiplayer_authority(id)
 		
 @export var custom_velocity := Vector3.ZERO:
 	set(new_velocity):
