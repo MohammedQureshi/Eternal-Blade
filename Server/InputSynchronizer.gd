@@ -1,5 +1,7 @@
 extends MultiplayerSynchronizer
 
+@onready var player = $".."
+
 var input_direction
 
 func _ready():
@@ -12,4 +14,10 @@ func _physics_process(delta):
 	input_direction = Input.get_vector("Left", "Right", "Forward", "Backward")
 	
 func _process(delta):
-	pass
+	if Input.is_action_just_pressed("Jump"):
+		jump.rpc()
+
+@rpc("call_local")
+func jump():
+	if multiplayer.is_server():
+		player.do_jump = true
