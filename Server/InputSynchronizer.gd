@@ -19,5 +19,5 @@ func _process(delta):
 
 @rpc("call_local")
 func jump():
-	if multiplayer.is_server():
+	if multiplayer.is_server() and not GlobalManager.isPaused:
 		player.do_jump = true

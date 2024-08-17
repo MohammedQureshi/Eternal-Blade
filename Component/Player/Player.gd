@@ -31,6 +31,12 @@ func _ready():
 
 func _apply_movement_from_input(delta):
 	
+	if multiplayer.get_unique_id() != player_id:
+		return
+		
+	if GlobalManager.isPaused:
+		return
+	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
@@ -51,13 +57,13 @@ func _apply_movement_from_input(delta):
 
 func _input(event):
 	
-	if multiplayer.get_unique_id() != player_id:
-		return
-	
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
+	
+	if multiplayer.get_unique_id() != player_id or GlobalManager.isPaused:
+		return
 		
-	if event is InputEventMouseMotion and GlobalManager.isCaptured:
+	if event is InputEventMouseMotion and not GlobalManager.isPaused:
 		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
 		rotate_y(-event.relative.x * mouse_sensitivity)

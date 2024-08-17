@@ -61,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 0.0524695, -0.50
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 0.0937023, 0)
 
 [node name="LeftEye" type="MeshInstance3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177301, 0.0756073, -0.487917)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177301, 0.0756073, -0.47002)
 mesh = SubResource("SphereMesh_hscrm")
 skeleton = NodePath("../RightEye")
 
