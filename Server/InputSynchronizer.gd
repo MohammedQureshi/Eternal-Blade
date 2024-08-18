@@ -21,13 +21,13 @@ func _process(delta):
 
 @rpc("call_local")
 func jump():
-	if multiplayer.is_server() and not player.isPaused:
+	if multiplayer.is_server() and not player.is_pause:
 		print("JUMP")
 		player.do_jump = true
 
 @rpc("call_local")
 func pause():
 	if multiplayer.is_server():
-		player.isPaused = !player.isPaused
-		print(player.isPaused)
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.isPaused else Input.MOUSE_MODE_CAPTURED)
+		player.is_pause = !player.is_pause
+		print(player.is_pause)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.is_pause else Input.MOUSE_MODE_CAPTURED)
