@@ -15,7 +15,4 @@ func _process(delta):
 	DebugManager.debug.add_property("FramesPerSecond", frames_per_second, 2)
 
 func _input(event):
-	DebugManager.debug.add_property("PausedState", GlobalManager.isPaused, 1)
-	if Input.is_action_just_pressed("Escape"):
-		GlobalManager.isPaused = !GlobalManager.isPaused
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if GlobalManager.isPaused else Input.MOUSE_MODE_CAPTURED)
+	pass

@@ -17,6 +17,7 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var do_jump = false
+var isPaused = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -24,6 +25,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	if multiplayer.get_unique_id() == player_id:
 		camera_3d.make_current()
+		isPaused = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		camera_3d.current = false
@@ -31,11 +33,8 @@ func _ready():
 
 func _apply_movement_from_input(delta):
 	
-	if multiplayer.get_unique_id() != player_id:
-		return
-		
-	if GlobalManager.isPaused:
-		return
+	#if isPaused:
+		#return
 	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -60,10 +59,10 @@ func _input(event):
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
 	
-	if multiplayer.get_unique_id() != player_id or GlobalManager.isPaused:
-		return
+	#if multiplayer.get_unique_id() != player_id or isPaused:
+		#return
 		
-	if event is InputEventMouseMotion and not GlobalManager.isPaused:
+	if event is InputEventMouseMotion and not isPaused:
 		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
 		rotate_y(-event.relative.x * mouse_sensitivity)
