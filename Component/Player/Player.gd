@@ -1,7 +1,10 @@
 extends CharacterBody3D
 
 @export var mouse_sensitivity = 0.002
-@onready var camera_3d = $Head/Camera3D
+@onready var camera_3d = $Body/Head/Camera3D
+@onready var body: MeshInstance3D = $Body
+@onready var head: MeshInstance3D = $Body/Head
+
 
 @export var player_id := 1:
 	set(id):
@@ -23,6 +26,7 @@ var is_pause = false
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
 	if multiplayer.get_unique_id() == player_id:
 		camera_3d.make_current()
 		is_pause = false
@@ -32,6 +36,8 @@ func _ready():
 
 
 func _apply_movement_from_input(delta):
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if is_pause else Input.MOUSE_MODE_CAPTURED)
 	
 	if is_pause:
 		return
@@ -58,15 +64,15 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
-	
-	#if multiplayer.get_unique_id() != player_id or is_pause:
-		#return
 		
 	if event is InputEventMouseMotion and not is_pause:
-		$Head.rotate_x(-event.relative.y * mouse_sensitivity)
-		$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
-		rotate_y(-event.relative.x * mouse_sensitivity)
+		head.rotate_x(-event.relative.y * mouse_sensitivity)
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-45), deg_to_rad(45))
+		body.rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _physics_process(delta):
+	DebugManager.debug.add_property("Paused", is_pause, 1)
+	DebugManager.debug.add_property("Jumping", do_jump, 3)
+	DebugManager.debug.add_property("PlayerId", multiplayer.get_unique_id(), 4)
 	if multiplayer.is_server():
 		_apply_movement_from_input(delta)

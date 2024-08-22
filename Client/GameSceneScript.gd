@@ -12,6 +12,7 @@ func _ready():
 
 func _process(delta):
 	var frames_per_second = int(1.0 / delta)
+	DebugManager.debug.add_property("FramesPerSecond", frames_per_second, 1)
 
 func _input(event):
 	pass

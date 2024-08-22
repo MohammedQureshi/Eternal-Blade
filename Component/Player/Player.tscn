@@ -3,6 +3,12 @@
 [ext_resource type="Script" path="res://Component/Player/Player.gd" id="1_fjgmn"]
 [ext_resource type="Script" path="res://Server/InputSynchronizer.gd" id="2_avy32"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5olh3"]
+albedo_color = Color(0.742044, 0.904505, 0.999848, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ml62g"]
+material = SubResource("StandardMaterial3D_5olh3")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27545"]
 albedo_color = Color(0.498039, 0.698039, 0.992157, 1)
 
@@ -17,12 +23,6 @@ material = SubResource("StandardMaterial3D_ouyqb")
 radius = 0.1
 height = 0.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5olh3"]
-albedo_color = Color(0.742044, 0.904505, 0.999848, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ml62g"]
-material = SubResource("StandardMaterial3D_5olh3")
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3t1hf"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_brfht"]
@@ -35,12 +35,15 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:custom_velocity")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Head:rotation")
+properties/3/path = NodePath("Body:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:rotation")
+properties/4/path = NodePath("Body/Head:rotation")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("Body/Head/Camera3D:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o7gta"]
 properties/0/path = NodePath("InputSynchronizer:input_direction")
@@ -50,28 +53,29 @@ properties/0/replication_mode = 1
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_fjgmn")
 
-[node name="Head" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.52467, 0)
-mesh = SubResource("SphereMesh_lj01x")
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ml62g")
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Head" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52467, 0)
+mesh = SubResource("SphereMesh_lj01x")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="Body/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00405741, 0.0524695, -0.50355)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Body/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 0.0937023, 0)
 
-[node name="LeftEye" type="MeshInstance3D" parent="Head"]
+[node name="LeftEye" type="MeshInstance3D" parent="Body/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177301, 0.0756073, -0.47002)
 mesh = SubResource("SphereMesh_hscrm")
 skeleton = NodePath("../RightEye")
 
-[node name="RightEye" type="MeshInstance3D" parent="Head"]
+[node name="RightEye" type="MeshInstance3D" parent="Body/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196104, 0.070575, -0.461599)
 mesh = SubResource("SphereMesh_hscrm")
-
-[node name="Body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_ml62g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
