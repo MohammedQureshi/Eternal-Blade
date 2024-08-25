@@ -1,6 +1,7 @@
 extends MultiplayerSynchronizer
 
 @onready var player = $".."
+@onready var pause_screen: Control = get_node("/root/Game/PauseScreen")
 
 var input_direction
 
@@ -11,13 +12,16 @@ func _ready():
 	input_direction = Input.get_vector("Left", "Right", "Forward", "Backward")
 
 func _physics_process(delta):
-	input_direction = Input.get_vector("Left", "Right", "Forward", "Backward")
+	if not player.is_pause:
+		input_direction = Input.get_vector("Left", "Right", "Forward", "Backward")
 	
 func _process(delta):
+	#Per multiplayer authority which is multiplayer.get_unique_id
 	if Input.is_action_just_pressed("Jump"):
 		jump.rpc()
 	if Input.is_action_just_pressed("Escape"):
-		pause.rpc()
+		print("Hello" + str(multiplayer.get_unique_id()))
+		toggle_pause()
 
 @rpc("call_local")
 func jump():
@@ -26,8 +30,13 @@ func jump():
 		print("JUMP")
 		player.do_jump = true
 
-@rpc("call_local")
-func pause():
-	if multiplayer.is_server():
+func toggle_pause():
+	if multiplayer.get_unique_id() == player.player_id:
 		print("MultiplayerID: " + str(multiplayer.get_unique_id()))
 		player.is_pause = !player.is_pause
+		if player.is_pause == true:
+			pause_screen.show()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			pause_screen.hide()
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

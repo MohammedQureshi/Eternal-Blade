@@ -29,15 +29,12 @@ func _ready():
 	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
 	if multiplayer.get_unique_id() == player_id:
 		camera_3d.make_current()
-		is_pause = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		camera_3d.current = false
 
 
 func _apply_movement_from_input(delta):
-	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if is_pause else Input.MOUSE_MODE_CAPTURED)
 	
 	if is_pause:
 		return
@@ -65,6 +62,9 @@ func _apply_movement_from_input(delta):
 	move_and_slide()
 
 func _input(event):
+	
+	if not get_multiplayer_authority() == multiplayer.get_unique_id():
+		return
 	
 	if Input.is_action_just_pressed("ForceQuit"):
 		get_tree().quit()
